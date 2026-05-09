@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Our Friendship</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    overflow:hidden;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:linear-gradient(-45deg,#0f172a,#1e1b4b,#312e81,#0f172a);
+    background-size:400% 400%;
+    animation:bgMove 12s ease infinite;
+    position:relative;
+}
+
+/* Animated Background */
+@keyframes bgMove{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
+}
+
+/* Floating glowing circles */
+.circle{
+    position:absolute;
+    border-radius:50%;
+    filter:blur(10px);
+    opacity:0.5;
+    animation:float 10s infinite linear;
+}
+
+.circle:nth-child(1){
+    width:200px;
+    height:200px;
+    background:#8b5cf6;
+    top:10%;
+    left:5%;
+}
+
+.circle:nth-child(2){
+    width:150px;
+    height:150px;
+    background:#06b6d4;
+    bottom:10%;
+    right:10%;
+    animation-duration:14s;
+}
+
+.circle:nth-child(3){
+    width:100px;
+    height:100px;
+    background:#ec4899;
+    top:70%;
+    left:20%;
+    animation-duration:8s;
+}
+
+@keyframes float{
+    0%{
+        transform:translateY(0px) rotate(0deg);
+    }
+    50%{
+        transform:translateY(-30px) rotate(180deg);
+    }
+    100%{
+        transform:translateY(0px) rotate(360deg);
+    }
+}
+
+/* Main Card */
+.container{
+    position:relative;
+    z-index:10;
+    width:90%;
+    max-width:500px;
+    padding:40px;
+    border-radius:30px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.15);
+    text-align:center;
+    color:white;
+    box-shadow:0 0 30px rgba(0,0,0,0.3);
+    animation:fadeIn 1.5s ease;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+h1{
+    font-size:3rem;
+    margin-bottom:10px;
+    background:linear-gradient(to right,#ffffff,#c4b5fd);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+}
+
+p{
+    opacity:0.85;
+    margin-bottom:30px;
+    line-height:1.7;
+}
+
+/* Button */
+.btn{
+    padding:15px 35px;
+    border:none;
+    border-radius:50px;
+    background:linear-gradient(135deg,#8b5cf6,#ec4899);
+    color:white;
+    font-size:1rem;
+    cursor:pointer;
+    transition:0.3s;
+    position:relative;
+    overflow:hidden;
+    box-shadow:0 0 20px rgba(236,72,153,0.5);
+}
+
+.btn:hover{
+    transform:scale(1.08);
+    box-shadow:0 0 35px rgba(236,72,153,0.8);
+}
+
+.btn::before{
+    content:'';
+    position:absolute;
+    top:0;
+    left:-100%;
+    width:100%;
+    height:100%;
+    background:rgba(255,255,255,0.2);
+    transform:skewX(-30deg);
+    transition:0.5s;
+}
+
+.btn:hover::before{
+    left:120%;
+}
+
+/* Popup */
+.popup{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.7);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    opacity:0;
+    pointer-events:none;
+    transition:0.4s;
+    z-index:100;
+}
+
+.popup.active{
+    opacity:1;
+    pointer-events:auto;
+}
+
+.popup-content{
+    position:relative;
+    width:90%;
+    max-width:500px;
+    padding:20px;
+    border-radius:25px;
+    background:rgba(255,255,255,0.08);
+    backdrop-filter:blur(15px);
+    border:1px solid rgba(255,255,255,0.15);
+    transform:scale(0.7);
+    transition:0.4s;
+    animation:popupGlow 3s infinite alternate;
+}
+
+.popup.active .popup-content{
+    transform:scale(1);
+}
+
+@keyframes popupGlow{
+    from{
+        box-shadow:0 0 20px #8b5cf6;
+    }
+    to{
+        box-shadow:0 0 40px #ec4899;
+    }
+}
+
+.popup img{
+    width:100%;
+    border-radius:20px;
+    object-fit:cover;
+}
+
+.close{
+    position:absolute;
+    top:10px;
+    right:15px;
+    font-size:28px;
+    color:white;
+    cursor:pointer;
+}
+
+/* Music Pulse */
+.pulse{
+    margin-top:25px;
+    display:flex;
+    justify-content:center;
+    gap:8px;
+}
+
+.bar{
+    width:8px;
+    height:30px;
+    background:white;
+    border-radius:20px;
+    animation:pulse 1s infinite;
+}
+
+.bar:nth-child(2){animation-delay:0.2s;}
+.bar:nth-child(3){animation-delay:0.4s;}
+.bar:nth-child(4){animation-delay:0.6s;}
+
+@keyframes pulse{
+    0%,100%{
+        transform:scaleY(1);
+        opacity:0.5;
+    }
+    50%{
+        transform:scaleY(2.2);
+        opacity:1;
+    }
+}
+
+/* Floating Hearts */
+.heart{
+    position:absolute;
+    color:rgba(255,255,255,0.15);
+    font-size:24px;
+    animation:rise 8s linear infinite;
+}
+
+@keyframes rise{
+    from{
+        transform:translateY(100vh) scale(0.5);
+        opacity:0;
+    }
+    20%{
+        opacity:1;
+    }
+    to{
+        transform:translateY(-120vh) scale(1.5);
+        opacity:0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="circle"></div>
+<div class="circle"></div>
+<div class="circle"></div>
+
+<div class="heart" style="left:10%; animation-delay:0s;">❤</div>
+<div class="heart" style="left:30%; animation-delay:2s;">❤</div>
+<div class="heart" style="left:70%; animation-delay:4s;">❤</div>
+<div class="heart" style="left:90%; animation-delay:1s;">❤</div>
+
+<div class="container">
+    <h1>Best Memories</h1>
+
+    <p>
+        Some friendships become unforgettable stories.
+        Every laugh, every moment, every memory —
+        stays forever.
+    </p>
+
+    <button class="btn" id="openBtn">
+        Open Our Memory 
+    </button>
+
+    <div class="pulse">
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+        <div class="bar"></div>
+    </div>
+</div>
+
+<!-- Popup -->
+<div class="popup" id="popup">
+    <div class="popup-content">
+        <span class="close" id="closeBtn">&times;</span>
+
+        <!-- REPLACE THIS IMAGE -->
+        <img src="your-photo.jpg" alt="Our Photo">
+
+        <h2 style="color:white; margin-top:15px; text-align:center;">
+            Forever Legendary ✨
+        </h2>
+    </div>
+</div>
+
+<script>
+const popup = document.getElementById("popup");
+const openBtn = document.getElementById("openBtn");
+const closeBtn = document.getElementById("closeBtn");
+
+openBtn.addEventListener("click", () => {
+    popup.classList.add("active");
+});
+
+closeBtn.addEventListener("click", () => {
+    popup.classList.remove("active");
+});
+
+popup.addEventListener("click", (e) => {
+    if(e.target === popup){
+        popup.classList.remove("active");
+    }
+});
+</script>
+
+</body>
+</html>
